@@ -53,5 +53,11 @@ class ModeloRF():
 
         pred = y_pred.flatten()[0]# de 2D a 
 
+        if pred == 1:
+            #pred='El usuario realizara una compra'
+            pred = 1
+        else:
+            #pred='El usuario no realizara una compra'
+            pred = 0
         
         return pred
