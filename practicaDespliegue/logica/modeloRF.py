@@ -28,12 +28,11 @@ class ModeloRF():
 
         with zipfile.ZipFile(archivo_zip, 'r') as zip_ref:
             zip_ref.extractall(destino)
-            
-        if os.path.exists(archivo_zip):
-            os.remove(archivo_zip)
 
         nombreArchivoRF = "Recursos/modeloRF"
         modeloRF2=self.cargarPipeline(self, nombreArchivoRF)
+
+        os.remove(nombreArchivoRF + ".pickle")
 
         cnames=['ProductRelated', 'ProductRelated_Duration', 'BounceRates', 'ExitRates', 'PageValues', 'Month', 'Region', 'VisitorType', 'Weekend']
         Xnew=[ProductRelated, ProductRelated_Duration, BounceRates, ExitRates, PageValues, Month, Region, VisitorType, Weekend]
