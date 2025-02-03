@@ -6,6 +6,7 @@ from keras import backend as K
 from practicaDespliegue.logica import modeloRF
 import pickle
 import keras
+import zipfile
 
 class ModeloRF():
     """Clase modelo Preprocesamiento y RF"""
@@ -21,8 +22,14 @@ class ModeloRF():
         nombreArchivoPipeline = "Recursos/pipePreprocesadores"
         pipe=self.cargarPipeline(self, nombreArchivoPipeline)
 
-        nombreArchivoKNN = "Recursos/modeloRF"
-        modeloRF2=self.cargarPipeline(self, nombreArchivoKNN)
+        archivo_zip = 'Recursos/modeloRF.zip'
+        destino = 'Recursos/'
+
+        with zipfile.ZipFile(archivo_zip, 'r') as zip_ref:
+            zip_ref.extractall(destino)
+
+        nombreArchivoRF = "Recursos/modeloRF"
+        modeloRF2=self.cargarPipeline(self, nombreArchivoRF)
 
         cnames=['ProductRelated', 'ProductRelated_Duration', 'BounceRates', 'ExitRates', 'PageValues', 'Month', 'Region', 'VisitorType', 'Weekend']
         Xnew=[ProductRelated, ProductRelated_Duration, BounceRates, ExitRates, PageValues, Month, Region, VisitorType, Weekend]
