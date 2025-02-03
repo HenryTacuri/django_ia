@@ -7,6 +7,7 @@ from practicaDespliegue.logica import modeloRF
 import pickle
 import keras
 import zipfile
+
 import os 
 
 class ModeloRF():
@@ -23,16 +24,12 @@ class ModeloRF():
         nombreArchivoPipeline = "Recursos/pipePreprocesadores"
         pipe=self.cargarPipeline(self, nombreArchivoPipeline)
 
-        archivo_zip = 'Recursos/modeloRF.zip'
-        destino = 'Recursos/'
+        with zipfile.ZipFile('Recursos/modeloRF.zip', 'r') as zip_ref:
+            zip_ref.extractall('Recursos/')
+        
+        modeloRF2=self.cargarPipeline(self, "Recursos/modeloRF")
 
-        with zipfile.ZipFile(archivo_zip, 'r') as zip_ref:
-            zip_ref.extractall(destino)
-
-        nombreArchivoRF = "Recursos/modeloRF"
-        modeloRF2=self.cargarPipeline(self, nombreArchivoRF)
-
-        os.remove(nombreArchivoRF + ".pickle")
+        os.remove("Recursos/modeloRF.pickle")
 
         cnames=['ProductRelated', 'ProductRelated_Duration', 'BounceRates', 'ExitRates', 'PageValues', 'Month', 'Region', 'VisitorType', 'Weekend']
         Xnew=[ProductRelated, ProductRelated_Duration, BounceRates, ExitRates, PageValues, Month, Region, VisitorType, Weekend]
@@ -56,16 +53,5 @@ class ModeloRF():
 
         pred = y_pred.flatten()[0]# de 2D a 
 
-        if pred == 1:
-            #pred='El usuario realizara una compra'
-            pred = 1
-        else:
-            #pred='El usuario no realizara una compra'
-            pred = 0
         
         return pred
-    
-#target (Posee enfermedad cardiaca:1, No posee enfermedad cardiaca:0)
-
-
-#resul=modeloSNN.modeloSNN.predecirNuevoCliente(modeloSNN.modeloSNN,PLAZOMESESCREDITO=PLAZOMESESCREDITO,MONTOCREDITO=MONTOCREDITO,TASAPAGO=TASAPAGO,EDAD=EDAD,CANTIDADPERSONASAMANTENER=CANTIDADPERSONASAMANTENER,EMPLEO=EMPLEO)
