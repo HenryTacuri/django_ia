@@ -10,18 +10,23 @@ class Clasificacion():
     
     @csrf_exempt
     @api_view(['GET','POST'])
-    def predecirIOJson():
+    def predecirIOJson(request):
+        print(request)
+        print('***********************************************')
+        print(request.body)
+        print('***********************************************')
+        body = json.loads(request.body.decode('utf-8'))
+        #Formato de datos de entrada
 
-
-        ProductRelated = 1
-        ProductRelated_Duration =0.000000
-        BounceRates = 0.20
-        ExitRates = 0.20
-        PageValues = 0.0
-        Month = "Feb"
-        Region = 0
-        VisitorType = "Returning_Visitor"
-        Weekend = 9
+        ProductRelated = int(body.get('ProductRelated'))
+        ProductRelated_Duration = float(body.get('ProductRelated_Duration'))
+        BounceRates = float(body.get('BounceRates'))
+        ExitRates = float(body.get('ExitRates'))
+        PageValues = float(body.get('PageValues'))
+        Month = str(body.get('Month'))
+        Region = int(body.get('Region'))
+        VisitorType = str(body.get('VisitorType'))
+        Weekend = int(body.get('Weekend'))
 
         modeloRF
 
