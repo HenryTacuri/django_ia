@@ -1,0 +1,1 @@
+web: gunicorn 'practica_despliegue.wsgi'
