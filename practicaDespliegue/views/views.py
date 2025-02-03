@@ -10,7 +10,7 @@ class Clasificacion():
     
     @csrf_exempt
     @api_view(['GET','POST'])
-    def predecirIOJson(request):
+    def predecirIOJson():
 
 
         ProductRelated = 1
