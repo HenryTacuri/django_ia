@@ -7,6 +7,7 @@ from practicaDespliegue.logica import modeloRF
 import pickle
 import keras
 import zipfile
+import os 
 
 class ModeloRF():
     """Clase modelo Preprocesamiento y RF"""
@@ -27,6 +28,9 @@ class ModeloRF():
 
         with zipfile.ZipFile(archivo_zip, 'r') as zip_ref:
             zip_ref.extractall(destino)
+            
+        if os.path.exists(archivo_zip):
+            os.remove(archivo_zip)
 
         nombreArchivoRF = "Recursos/modeloRF"
         modeloRF2=self.cargarPipeline(self, nombreArchivoRF)
